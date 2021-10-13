@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'authentication.apps.AuthenticationConfig',
-    'products.apps.ProductsConfig'
+    'products',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,5 @@ try:
     from grubhub_clone.local_settings import *
 except ImportError:
     pass
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
