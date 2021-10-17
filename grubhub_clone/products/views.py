@@ -3,20 +3,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from .models import Products
-from .models import Reviews
-from .models import Category
-from .models import ShoppingCart
-from .serializers import ProductSerializer
-from .serializers import CategorySerializer
-from .serializers import ReviewSerializer
-from .serializers import ShoppingCartSerializer
+from .models import *
+from .serializers import *
 from django.http.response import Http404
 from django.contrib.auth.models import User
 
 class ProductList(APIView):
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         products = Products.objects.all()
@@ -33,7 +27,7 @@ class ProductList(APIView):
 
 class CategoryList(APIView):
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get(self, request):
         categories = Category.objects.all()
@@ -50,14 +44,19 @@ class CategoryList(APIView):
 
 class ReviewList(APIView):
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+    def get_object(self,pk):
+        try:
+            return Reviews.objects.get(pk=pk)
+        except Reviews.DoesNotExist:
+            raise Http404
 
     def get(self, request):
         reviews = Reviews.objects.all()
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
 
-    def post(self, request):
+    def post(self, request, pk):
         if request.method == 'POST':
             serializer = ReviewSerializer(data=request.data)
             if serializer.is_valid():
@@ -67,7 +66,7 @@ class ReviewList(APIView):
 
 class ShoppingCart(APIView):
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_object(self,pk):
         try:

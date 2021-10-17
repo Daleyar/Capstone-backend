@@ -8,6 +8,7 @@ django = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 mysql-connector-python = "*"
+pyjwt = "~=2.1.0"
 
 [dev-packages]
 

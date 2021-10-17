@@ -24,6 +24,7 @@ class Reviews(models.Model):
     rating = models.IntegerField()
 
 class ShoppingCart(models.Model):
-    user = models.ForeignKey(User, null=True,blank=True,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True,blank=False,on_delete=models.CASCADE)
     product = models.ForeignKey(Products, null=True,blank=True,on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    price = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=False)

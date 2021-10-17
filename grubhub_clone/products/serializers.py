@@ -1,12 +1,10 @@
 from rest_framework import serializers
-from .models import Category, Products
-from .models import Reviews
-from .models import ShoppingCart
+from .models import *
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
-        fields = ['name', 'price', 'description']
+        fields = ['name', 'price', 'description', 'category']
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,9 +14,9 @@ class CategorySerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reviews
-        fields = ['id', 'user', 'product', 'comment', 'rating']
+        fields = ['id', 'product', 'comment', 'rating']
 
 class ShoppingCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShoppingCart
-        fields = ['id', 'user', 'product', 'quantity']
+        fields = ['id', 'user', 'product', 'quantity', 'price']
